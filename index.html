@@ -86,11 +86,14 @@ p{margin:0}
 
 .hotbar{margin-top:36px}
 .hotbar-label{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px}
-.slots{display:grid;grid-template-columns:repeat(9,minmax(0,1fr));gap:6px}
-@media (max-width:620px){.slots{grid-template-columns:repeat(5,minmax(0,1fr))}.slot{font-size:11.5px}}
-.slot{position:relative;aspect-ratio:1;border:1.5px solid var(--line);background:var(--surface);border-radius:8px;display:flex;align-items:flex-end;justify-content:center;padding:6px 4px;text-align:center;font-size:12.5px;font-weight:600;line-height:1.15}
+.slots{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px}
+@media (max-width:620px){.slots{grid-template-columns:repeat(auto-fill,minmax(98px,1fr))}}
+.slot{position:relative;height:74px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);border-radius:8px;display:flex;align-items:flex-end;justify-content:center;padding:6px 4px 7px;text-align:center;font:600 12.5px/1.15 var(--font-body);cursor:pointer;transition:border-color .15s,background .15s,transform .1s}
+.slot:hover{border-color:var(--accent)}
+.slot:active{transform:translateY(1px)}
+.slot[aria-pressed="true"]{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 18%,var(--surface));box-shadow:inset 0 -3px 0 var(--accent)}
 .slot .k{position:absolute;top:4px;left:6px;font-family:var(--font-mono);font-size:10.5px;font-weight:400;color:var(--muted)}
-.slot .ic{position:absolute;top:50%;left:50%;transform:translate(-50%,-62%);width:22px;height:22px;color:var(--accent)}
+.slot .ic{position:absolute;top:13px;left:50%;transform:translateX(-50%);width:22px;height:22px;color:var(--accent)}
 .slot:nth-child(even) .ic{color:var(--accent-2)}
 
 .reel{display:block;text-decoration:none;background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:var(--shadow)}
@@ -142,7 +145,7 @@ section.band{padding:72px 0;border-top:1px solid var(--line)}
 .game .links{margin-top:auto;padding-top:6px}
 
 /* disciplines */
-.disc{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px}
+.disc{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(210px,100%),1fr));gap:16px}
 .d-card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px 18px 16px;border-top:4px solid var(--accent);display:flex;flex-direction:column;gap:8px}
 .d-card:nth-child(even){border-top-color:var(--accent-2)}
 .d-card h3{font-size:17px}
@@ -342,6 +345,44 @@ dialog.vp::backdrop{background:rgba(6,9,14,.9)}
 .vp-bar{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:10px 14px;background:var(--surface)}
 .vp-bar a{font-size:14px}
 
+
+/* skill icons, filter, rail, music hint */
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.skill-icons{list-style:none;margin:2px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:5px}
+.skill-icons li{width:28px;height:28px;border:1px solid var(--line);border-radius:7px;display:grid;place-items:center;color:var(--accent);background:var(--paper)}
+.skill-icons li:nth-child(even){color:var(--accent-2)}
+.skill-icons .si{width:15px;height:15px}
+.f-body .skill-icons{margin:0 0 16px}
+.d-card h3{display:flex;align-items:center;gap:10px}
+.d-card .dh{width:22px;height:22px;color:var(--accent);flex:none}
+.d-card:nth-child(even) .dh{color:var(--accent-2)}
+button.lnk{background:none;border:0;padding:0;cursor:pointer;font-family:var(--font-body)}
+.h2i{width:.8em;height:.8em;margin-right:.35em;vertical-align:-.04em;color:var(--accent)}
+.filterbar{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;margin:-16px 0 24px;padding:12px 16px;border:1px solid var(--accent);border-radius:10px;background:color-mix(in srgb,var(--accent) 10%,var(--surface))}
+.filterbar[hidden],.nomatch[hidden]{display:none}
+.filterbar span{display:flex;align-items:center;gap:8px;font-weight:600}
+.filterbar svg{width:18px;height:18px;color:var(--accent)}
+.feature[hidden],.game[hidden]{display:none}
+.rail{display:none}
+@media (min-width:1080px){
+  body{padding-left:64px}
+  .rail{display:block;position:fixed;left:0;top:0;bottom:0;width:64px;z-index:25;border-right:1px solid var(--line);background:var(--paper)}
+  .rail ul{list-style:none;margin:0;padding:72px 0 0;display:flex;flex-direction:column;align-items:center;gap:6px}
+  .rail a{position:relative;display:grid;place-items:center;width:44px;height:44px;border-radius:10px;color:var(--muted);text-decoration:none;border:1.5px solid transparent}
+  .rail a:hover{color:var(--ink);background:var(--surface)}
+  .rail .ri{width:20px;height:20px}
+  .rail .rl{position:absolute;left:52px;top:50%;transform:translateY(-50%);white-space:nowrap;font-size:13px;font-weight:600;padding:4px 9px;border-radius:6px;background:var(--surface);border:1px solid var(--line);color:var(--ink);opacity:0;pointer-events:none;transition:opacity .15s}
+  .rail a:hover .rl,.rail a:focus-visible .rl{opacity:1}
+  .rail li.active a{color:var(--accent);border-color:var(--accent);background:color-mix(in srgb,var(--accent) 14%,var(--surface))}
+  .rail li.active a::before{content:"";position:absolute;left:-10px;top:8px;bottom:8px;width:3px;border-radius:2px;background:var(--accent)}
+}
+.p-hint{position:absolute;left:4px;bottom:calc(100% + 10px);display:flex;align-items:center;gap:8px;border:0;border-radius:999px;padding:8px 14px;background:var(--accent);color:#fff;font:600 13px var(--font-body);cursor:pointer;box-shadow:0 6px 20px rgba(0,0,0,.3);white-space:nowrap}
+.p-hint::after{content:"";position:absolute;right:auto;left:22px;top:100%;border:7px solid transparent;border-top-color:var(--accent)}
+.p-hint svg{width:14px;height:14px}
+.p-hint[hidden]{display:none}
+@media (prefers-reduced-motion: no-preference){.p-hint{animation:hintbob 2.4s ease-in-out infinite}}
+@keyframes hintbob{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+
 /* footer */
 footer{border-top:1px solid var(--line);padding:56px 0 40px;background:var(--surface)}
 .foot{display:flex;justify-content:space-between;gap:32px;flex-wrap:wrap;align-items:flex-end}
@@ -364,14 +405,13 @@ footer{border-top:1px solid var(--line);padding:56px 0 40px;background:var(--sur
   <div class="wrap">
     <a class="brand" href="#top"><span class="brand-mark" aria-hidden="true">B</span>Brandon Hutchison</a>
     <nav aria-label="Sections">
-      <ul>
-        <li><a href="#games">Games</a></li>
-        <li><a href="#level-design">Levels</a></li>
-        <li><a href="#skills">Skills</a></li>
-        <li><a href="#art">Art</a></li>
-        <li><a href="#music">Music</a></li>
-        <li><a href="#case-studies">Case studies</a></li>
-        <li><a href="#about">About</a></li>
+      <ul id="nav-list">
+        <li data-sec="games"><a href="#games">Games</a></li>
+        <li data-sec="art"><a href="#art">Art</a></li>
+        <li data-sec="level-design"><a href="#level-design">Levels</a></li>
+        <li data-sec="music"><a href="#music">Music</a></li>
+        <li data-sec="about"><a href="#about">About</a></li>
+        <li data-sec="skills"><a href="#skills">Skills</a></li>
       </ul>
     </nav>
     <div class="nav-tools">
@@ -383,29 +423,40 @@ footer{border-top:1px solid var(--line);padding:56px 0 40px;background:var(--sur
   </div>
 </header>
 
+<nav class="rail" id="rail" aria-label="Page sections"><ul>
+  <li data-sec="top"><a href="#top" aria-label="Home"><svg class="ri" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg><span class="rl">Home</span></a></li>
+  <li data-sec="games"><a href="#games" aria-label="Games"><svg class="ri" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="7" width="20" height="11" rx="4"/><path d="M7 10.5v4M5 12.5h4"/><circle cx="15.5" cy="11.5" r=".6" fill="currentColor"/><circle cx="17.5" cy="13.5" r=".6" fill="currentColor"/></svg><span class="rl">Games</span></a></li>
+  <li data-sec="art"><a href="#art" aria-label="Art"><svg class="ri" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/></svg><span class="rl">Art</span></a></li>
+  <li data-sec="level-design"><a href="#level-design" aria-label="Levels"><svg class="ri" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6l6-3 6 3 6-3v15l-6 3-6-3-6 3z"/><path d="M9 3v15M15 6v15"/></svg><span class="rl">Levels</span></a></li>
+  <li data-sec="music"><a href="#music" aria-label="Music"><svg class="ri" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg><span class="rl">Music</span></a></li>
+  <li data-sec="about"><a href="#about" aria-label="About"><svg class="ri" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0116 0"/></svg><span class="rl">About</span></a></li>
+  <li data-sec="skills"><a href="#skills" aria-label="Skills"><svg class="ri" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg><span class="rl">Skills</span></a></li>
+</ul></nav>
+
 <main id="top">
-  <section class="hero">
+  <section class="hero" id="home-hero">
     <div class="wrap hero-grid">
       <div>
         <p class="eyebrow">Game designer · Sheridan College, class of 2027</p>
         <h1>Brandon<br>Hutchison<span>.</span></h1>
         <p class="lead">I'm a game designer in the final year of Sheridan College's Honours Bachelor of Game Design. I design levels and gameplay, then help build them in Unity with my own art, effects, sound and music.</p>
         <div class="actions">
-          <a class="btn primary" href="#games">See my games</a>
+          <a class="btn primary" id="hero-cta" href="#games">See my games</a>
           <a class="btn" href="https://www.youtube.com/watch?v=m_ZZcSrx68o" target="_blank" rel="noopener">Watch the demo reel</a>
         </div>
         <div class="hotbar">
-          <div class="hotbar-label"><span class="mono muted">Loadout</span><span class="mono muted">9 / 9 slots</span></div>
-          <div class="slots" role="list">
-            <div class="slot" role="listitem"><span class="k">1</span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/></svg>2D Art</div>
-            <div class="slot" role="listitem"><span class="k">2</span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2l9 5v10l-9 5-9-5V7z"/><path d="M12 22V12M21 7l-9 5-9-5"/></svg>3D Art</div>
-            <div class="slot" role="listitem"><span class="k">3</span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="5" r="2"/><path d="M10 22l2-8 2 8M8 10l4-2 4 2M12 8v6"/></svg>Animation</div>
-            <div class="slot" role="listitem"><span class="k">4</span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M8 14h8"/></svg>UI</div>
-            <div class="slot" role="listitem"><span class="k">5</span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2v4M12 18v4M4.9 4.9l2.8 2.8M16.3 16.3l2.8 2.8M2 12h4M18 12h4M4.9 19.1l2.8-2.8M16.3 7.7l2.8-2.8"/></svg>VFX</div>
-            <div class="slot" role="listitem"><span class="k">6</span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 6l-6 6 6 6M16 6l6 6-6 6"/></svg>C#</div>
-            <div class="slot" role="listitem"><span class="k">7</span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16v4z"/><path d="M13 7l4 4"/></svg>Writing</div>
-            <div class="slot" role="listitem"><span class="k">8</span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 010 7M19 5a10 10 0 010 14"/></svg>Sound</div>
-            <div class="slot" role="listitem"><span class="k">9</span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>Music</div>
+          <div class="hotbar-label"><span class="mono muted">Loadout · select a skill to see the games I used it in</span><span class="mono muted">10 / 10</span></div>
+          <div class="slots" role="group" aria-label="Skills">
+            <button type="button" class="slot" data-skill="design" aria-pressed="false"><span class="k">1</span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6l6-3 6 3 6-3v15l-6 3-6-3-6 3z"/><path d="M9 3v15M15 6v15"/></svg><span class="sl">Design</span></button>
+            <button type="button" class="slot" data-skill="art2d" aria-pressed="false"><span class="k">2</span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/></svg><span class="sl">2D Art</span></button>
+            <button type="button" class="slot" data-skill="art3d" aria-pressed="false"><span class="k">3</span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2l9 5v10l-9 5-9-5V7z"/><path d="M12 22V12M21 7l-9 5-9-5"/></svg><span class="sl">3D Art</span></button>
+            <button type="button" class="slot" data-skill="anim" aria-pressed="false"><span class="k">4</span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="5" r="2"/><path d="M10 22l2-8 2 8M8 10l4-2 4 2M12 8v6"/></svg><span class="sl">Animation</span></button>
+            <button type="button" class="slot" data-skill="ui" aria-pressed="false"><span class="k">5</span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M8 14h8"/></svg><span class="sl">UI/UX</span></button>
+            <button type="button" class="slot" data-skill="vfx" aria-pressed="false"><span class="k">6</span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2v4M12 18v4M4.9 4.9l2.8 2.8M16.3 16.3l2.8 2.8M2 12h4M18 12h4M4.9 19.1l2.8-2.8M16.3 7.7l2.8-2.8"/></svg><span class="sl">VFX</span></button>
+            <button type="button" class="slot" data-skill="code" aria-pressed="false"><span class="k">7</span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 6l-6 6 6 6M16 6l6 6-6 6"/></svg><span class="sl">Programming</span></button>
+            <button type="button" class="slot" data-skill="sound" aria-pressed="false"><span class="k">8</span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 010 7M19 5a10 10 0 010 14"/></svg><span class="sl">Sound Design</span></button>
+            <button type="button" class="slot" data-skill="music" aria-pressed="false"><span class="k">9</span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg><span class="sl">Music</span></button>
+            <button type="button" class="slot" data-skill="writing" aria-pressed="false"><span class="k">0</span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16v4z"/><path d="M13 7l4 4"/></svg><span class="sl">Writing</span></button>
           </div>
         </div>
       </div>
@@ -424,13 +475,15 @@ footer{border-top:1px solid var(--line);padding:56px 0 40px;background:var(--sur
     <div class="wrap">
       <div class="sec-head">
         <div>
-          <h2>Games &amp; prototypes</h2>
+          <h2><svg class="h2i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="7" width="20" height="11" rx="4"/><path d="M7 10.5v4M5 12.5h4"/><circle cx="15.5" cy="11.5" r=".6" fill="currentColor"/><circle cx="17.5" cy="13.5" r=".6" fill="currentColor"/></svg>Games &amp; prototypes</h2>
           <p>Team projects, game jams and solo prototypes, all built in Unity unless noted. Most are playable in your browser on itch.io.</p>
         </div>
         <a class="btn" href="https://bradash.itch.io/" target="_blank" rel="noopener">All games on itch.io</a>
       </div>
+      <div class="filterbar" id="filterbar" hidden><span id="filter-text"></span><button type="button" class="lnk" id="filter-clear">Show all games</button></div>
+      <p class="nomatch" id="nomatch" hidden>None of my games use this skill yet.</p>
 
-      <article class="feature">
+      <article class="feature" data-skills="design art2d art3d ui code writing music">
         <div class="f-media duo">
           <img src="images/game-streaming-talents.webp" alt="Streaming Talents key art with three VTuber characters">
           <img src="images/shot-streaming-talents-2.webp" alt="Streaming Talents: a dim apartment desk with a coffee machine and the line 'The coffee has been made'">
@@ -444,6 +497,7 @@ footer{border-top:1px solid var(--line);padding:56px 0 40px;background:var(--sur
             <dt>Engine</dt><dd>Unity · Browser &amp; Windows</dd>
             <dt>Genre</dt><dd>Narrative simulation</dd>
           </dl>
+          <ul class="skill-icons" aria-label="My work on this project"><li title="Design"><svg class="si" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6l6-3 6 3 6-3v15l-6 3-6-3-6 3z"/><path d="M9 3v15M15 6v15"/></svg><span class="sr">Design</span></li><li title="2D Art"><svg class="si" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/></svg><span class="sr">2D Art</span></li><li title="3D Art"><svg class="si" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2l9 5v10l-9 5-9-5V7z"/><path d="M12 22V12M21 7l-9 5-9-5"/></svg><span class="sr">3D Art</span></li><li title="UI/UX"><svg class="si" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M8 14h8"/></svg><span class="sr">UI/UX</span></li><li title="Programming"><svg class="si" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 6l-6 6 6 6M16 6l6 6-6 6"/></svg><span class="sr">Programming</span></li><li title="Music"><svg class="si" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg><span class="sr">Music</span></li><li title="Writing"><svg class="si" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16v4z"/><path d="M13 7l4 4"/></svg><span class="sr">Writing</span></li></ul>
           <div class="links">
             <a class="lnk" href="#work-streaming-talents">My work on it →</a>
             <a class="lnk" href="https://bradash.itch.io/streaming-talents" target="_blank" rel="noopener">Play on itch.io</a>
@@ -451,7 +505,7 @@ footer{border-top:1px solid var(--line);padding:56px 0 40px;background:var(--sur
         </div>
       </article>
 
-      <article class="feature flip">
+      <article class="feature flip" data-skills="design art3d code music">
         <div class="f-media">
           <img src="images/shot-swapping-sellout-2.webp" alt="Swapping Sellout: a third-person view down a convenience store aisle with a timer and quota counter">
           <div class="stack">
@@ -468,6 +522,7 @@ footer{border-top:1px solid var(--line);padding:56px 0 40px;background:var(--sur
             <dt>Engine</dt><dd>Unity · Browser &amp; Windows</dd>
             <dt>Genre</dt><dd>Stealth comedy</dd>
           </dl>
+          <ul class="skill-icons" aria-label="My work on this project"><li title="Design"><svg class="si" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6l6-3 6 3 6-3v15l-6 3-6-3-6 3z"/><path d="M9 3v15M15 6v15"/></svg><span class="sr">Design</span></li><li title="3D Art"><svg class="si" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2l9 5v10l-9 5-9-5V7z"/><path d="M12 22V12M21 7l-9 5-9-5"/></svg><span class="sr">3D Art</span></li><li title="Programming"><svg class="si" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 6l-6 6 6 6M16 6l6 6-6 6"/></svg><span class="sr">Programming</span></li><li title="Music"><svg class="si" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg><span class="sr">Music</span></li></ul>
           <div class="links">
             <a class="lnk" href="#work-swapping-sellout">My work on it →</a>
             <a class="lnk" href="https://bradash.itch.io/swapping-sellout" target="_blank" rel="noopener">Play on itch.io</a>
@@ -479,12 +534,13 @@ footer{border-top:1px solid var(--line);padding:56px 0 40px;background:var(--sur
       </article>
 
       <div class="games">
-        <article class="game">
+        <article class="game" data-skills="design art2d art3d vfx code sound music">
           <img src="images/game-speed-blower.webp" alt="Speed Blower title over a neon city street" loading="lazy">
           <div class="g-body">
             <span class="g-tag">Design Week Winter 2026 · Team 20</span>
             <h3>Speed Blower</h3>
             <p>A first-person movement platformer where powerful breathing is the key to your speed. I was game and level designer, plus concept art, particles, sound and music.</p>
+            <ul class="skill-icons" aria-label="My work on this project"><li title="Design"><svg class="si" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6l6-3 6 3 6-3v15l-6 3-6-3-6 3z"/><path d="M9 3v15M15 6v15"/></svg><span class="sr">Design</span></li><li title="2D Art"><svg class="si" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/></svg><span class="sr">2D Art</span></li><li title="3D Art"><svg class="si" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2l9 5v10l-9 5-9-5V7z"/><path d="M12 22V12M21 7l-9 5-9-5"/></svg><span class="sr">3D Art</span></li><li title="VFX"><svg class="si" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2v4M12 18v4M4.9 4.9l2.8 2.8M16.3 16.3l2.8 2.8M2 12h4M18 12h4M4.9 19.1l2.8-2.8M16.3 7.7l2.8-2.8"/></svg><span class="sr">VFX</span></li><li title="Programming"><svg class="si" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 6l-6 6 6 6M16 6l6 6-6 6"/></svg><span class="sr">Programming</span></li><li title="Sound Design"><svg class="si" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 010 7M19 5a10 10 0 010 14"/></svg><span class="sr">Sound Design</span></li><li title="Music"><svg class="si" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg><span class="sr">Music</span></li></ul>
             <div class="links">
               <a class="lnk" href="#work-speed-blower">My work →</a>
               <a class="lnk" href="https://techhead.itch.io/speed-blower" target="_blank" rel="noopener">Play</a>
@@ -492,12 +548,13 @@ footer{border-top:1px solid var(--line);padding:56px 0 40px;background:var(--sur
             </div>
           </div>
         </article>
-        <article class="game">
+        <article class="game" data-skills="ui art3d code vfx sound music">
           <img src="images/game-broken-arm.webp" alt="Broken Arm: a character with a glowing railgun arm" loading="lazy">
           <div class="g-body">
             <span class="g-tag">Alt-control Design Week · 4 days</span>
             <h3>Broken Arm</h3>
             <p>An endless railgun shooter with a catch. I did the UI, enemy model, programming, lighting, VFX, sound and music; this is my keyboard-and-mouse version.</p>
+            <ul class="skill-icons" aria-label="My work on this project"><li title="3D Art"><svg class="si" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2l9 5v10l-9 5-9-5V7z"/><path d="M12 22V12M21 7l-9 5-9-5"/></svg><span class="sr">3D Art</span></li><li title="UI/UX"><svg class="si" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M8 14h8"/></svg><span class="sr">UI/UX</span></li><li title="VFX"><svg class="si" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2v4M12 18v4M4.9 4.9l2.8 2.8M16.3 16.3l2.8 2.8M2 12h4M18 12h4M4.9 19.1l2.8-2.8M16.3 7.7l2.8-2.8"/></svg><span class="sr">VFX</span></li><li title="Programming"><svg class="si" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 6l-6 6 6 6M16 6l6 6-6 6"/></svg><span class="sr">Programming</span></li><li title="Sound Design"><svg class="si" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 010 7M19 5a10 10 0 010 14"/></svg><span class="sr">Sound Design</span></li><li title="Music"><svg class="si" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg><span class="sr">Music</span></li></ul>
             <div class="links">
               <a class="lnk" href="#work-broken-arm">My work →</a>
               <a class="lnk" href="https://bradash.itch.io/broken-arm" target="_blank" rel="noopener">Play</a>
@@ -505,12 +562,13 @@ footer{border-top:1px solid var(--line);padding:56px 0 40px;background:var(--sur
             </div>
           </div>
         </article>
-        <article class="game">
+        <article class="game" data-skills="art2d anim ui vfx sound music code">
           <img src="images/game-to-knight.webp" alt="To-Knight a Knight title screen in a pixel-art arena" loading="lazy">
           <div class="g-body">
             <span class="g-tag">Accessibility game jam · Team</span>
             <h3>To-Knight a Knight</h3>
             <p>A 2D souls-lite fighting game. I did the art pass, illustrated and animated the player knight, and made the VFX, sound and music.</p>
+            <ul class="skill-icons" aria-label="My work on this project"><li title="2D Art"><svg class="si" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/></svg><span class="sr">2D Art</span></li><li title="Animation"><svg class="si" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="5" r="2"/><path d="M10 22l2-8 2 8M8 10l4-2 4 2M12 8v6"/></svg><span class="sr">Animation</span></li><li title="UI/UX"><svg class="si" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M8 14h8"/></svg><span class="sr">UI/UX</span></li><li title="VFX"><svg class="si" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2v4M12 18v4M4.9 4.9l2.8 2.8M16.3 16.3l2.8 2.8M2 12h4M18 12h4M4.9 19.1l2.8-2.8M16.3 7.7l2.8-2.8"/></svg><span class="sr">VFX</span></li><li title="Programming"><svg class="si" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 6l-6 6 6 6M16 6l6 6-6 6"/></svg><span class="sr">Programming</span></li><li title="Sound Design"><svg class="si" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 010 7M19 5a10 10 0 010 14"/></svg><span class="sr">Sound Design</span></li><li title="Music"><svg class="si" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg><span class="sr">Music</span></li></ul>
             <div class="links">
               <a class="lnk" href="#work-to-knight">My work →</a>
               <a class="lnk" href="https://clamel.itch.io/to-knight-a-knight" target="_blank" rel="noopener">Play</a>
@@ -518,36 +576,39 @@ footer{border-top:1px solid var(--line);padding:56px 0 40px;background:var(--sur
             </div>
           </div>
         </article>
-        <article class="game">
+        <article class="game" data-skills="art2d">
           <img src="images/game-hermes.webp" alt="Hermes Dysfunctional: an astronaut on an alien sunset beach" loading="lazy">
           <div class="g-body">
             <span class="g-tag">Team project · Sprite artist</span>
             <h3>Hermes Dysfunctional</h3>
             <p>An 8-bit top-down Metroidvania set in space. I made all the sprite art except the UI, plus concept art and the menu screens.</p>
+            <ul class="skill-icons" aria-label="My work on this project"><li title="2D Art"><svg class="si" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/></svg><span class="sr">2D Art</span></li></ul>
             <div class="links">
               <a class="lnk" href="#work-hermes-dysfunctional">My work →</a>
               <a class="lnk" href="https://bradash.itch.io/hermes-dysfunctional" target="_blank" rel="noopener">Play</a>
             </div>
           </div>
         </article>
-        <article class="game">
+        <article class="game" data-skills="design art2d anim music">
           <img src="images/game-jumping-game.webp" alt="The Jumping Game That Will Blow Your Mind pixel-art title" loading="lazy">
           <div class="g-body">
             <span class="g-tag">Platformer · Team</span>
             <h3>The Jumping Game That Will Blow Your Mind</h3>
             <p>Jump, dash, teleport. I designed the tutorial level and made the character, its animation and the music.</p>
+            <ul class="skill-icons" aria-label="My work on this project"><li title="Design"><svg class="si" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6l6-3 6 3 6-3v15l-6 3-6-3-6 3z"/><path d="M9 3v15M15 6v15"/></svg><span class="sr">Design</span></li><li title="2D Art"><svg class="si" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/></svg><span class="sr">2D Art</span></li><li title="Animation"><svg class="si" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="5" r="2"/><path d="M10 22l2-8 2 8M8 10l4-2 4 2M12 8v6"/></svg><span class="sr">Animation</span></li><li title="Music"><svg class="si" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg><span class="sr">Music</span></li></ul>
             <div class="links">
               <a class="lnk" href="#work-jumping-game">My work →</a>
               <a class="lnk" href="https://tattin.itch.io/the-jumping-game-that-will-blow-your-mind" target="_blank" rel="noopener">Play</a>
             </div>
           </div>
         </article>
-        <article class="game">
+        <article class="game" data-skills="art2d music">
           <img src="images/game-flex-it.webp" alt="Flex It: a bodybuilder posing on stage with arrow prompts" loading="lazy">
           <div class="g-body">
             <span class="g-tag">MicroMix 2024 · Team</span>
             <h3>Flex It</h3>
             <p>A WarioWare-style microgame: flex to woo the crowd. I drew the character and background and made the music.</p>
+            <ul class="skill-icons" aria-label="My work on this project"><li title="2D Art"><svg class="si" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/></svg><span class="sr">2D Art</span></li><li title="Music"><svg class="si" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg><span class="sr">Music</span></li></ul>
             <div class="links">
               <a class="lnk" href="#work-flex-it">My work →</a>
               <a class="lnk" href="https://amy-salomon.itch.io/flex-it-micromix-2024-game" target="_blank" rel="noopener">Play</a>
@@ -555,13 +616,14 @@ footer{border-top:1px solid var(--line);padding:56px 0 40px;background:var(--sur
             </div>
           </div>
         </article>
-        <article class="game">
+        <article class="game" data-skills="design writing art2d music">
           <img src="images/game-my-game-dev.webp" alt="My Game Development: line drawing of a tired-looking character" loading="lazy">
           <div class="g-body">
             <span class="g-tag">Solo · Twine · Visual novel</span>
             <h3>My Game Development</h3>
             <p>A narrative game about making games, with 16 illustrations and an original soundtrack.</p>
             <p class="note">Deals with heavy themes. Content warnings are on the game page.</p>
+            <ul class="skill-icons" aria-label="My work on this project"><li title="Design"><svg class="si" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6l6-3 6 3 6-3v15l-6 3-6-3-6 3z"/><path d="M9 3v15M15 6v15"/></svg><span class="sr">Design</span></li><li title="2D Art"><svg class="si" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/></svg><span class="sr">2D Art</span></li><li title="Music"><svg class="si" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg><span class="sr">Music</span></li><li title="Writing"><svg class="si" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16v4z"/><path d="M13 7l4 4"/></svg><span class="sr">Writing</span></li></ul>
             <div class="links">
               <a class="lnk" href="https://bradash.itch.io/my-game-development" target="_blank" rel="noopener">Play →</a>
               <a class="lnk" href="https://www.youtube.com/watch?v=oklgBSUIZNw" target="_blank" rel="noopener">Full OST <span class="t">16:50</span></a>
@@ -586,137 +648,12 @@ footer{border-top:1px solid var(--line);padding:56px 0 40px;background:var(--sur
     </div>
   </section>
 
-  <!-- LEVEL DESIGN -->
-  <section class="band" id="level-design">
-    <div class="wrap">
-      <div class="sec-head">
-        <div>
-          <h2>Level design</h2>
-          <p>Levels from my level design courses, from stories, sketches, metrics and maps through greybox and playtesting to a final build.</p>
-        </div>
-      </div>
-      <div class="levels">
-        <article class="game">
-          <a href="#work-fallen-farm" class="lvl-img"><img src="images/fc-gameplay-map.webp" alt="Fallen Farm gameplay map with enemy, pickup and alarm markers" loading="lazy"></a>
-          <div class="g-body">
-            <span class="g-tag">Far Cry 5 Arcade Editor · 2025</span>
-            <h3>Fallen Farm</h3>
-            <p>A custom outpost mission on a farm overrun by cultists. I started from an analysis of Far Cry 5's Fall's End, then built bubble and mission diagrams, metrics, maps, a greybox and the final level through two rounds of testing.</p>
-            <div class="links">
-              <a class="lnk" href="#work-fallen-farm">Full breakdown →</a>
-              <a class="lnk" href="https://www.youtube.com/watch?v=TgH2fJZTefw" target="_blank" rel="noopener">Playthrough <span class="t">10:58</span></a>
-            </div>
-          </div>
-        </article>
-        <article class="game">
-          <a href="https://steamcommunity.com/sharedfiles/filedetails/?id=3334522282" target="_blank" rel="noopener" class="lvl-img"><img src="images/portal-verb-jump.webp" alt="Portal 2 test chamber with a faith plate and bounce gel" loading="lazy"></a>
-          <div class="g-body">
-            <span class="g-tag">Portal 2 Puzzle Maker · 2024</span>
-            <h3>Verb Jump</h3>
-            <p>A test chamber for new and casual players who haven't played Portal before, using buttons, weighted cubes, a faith plate, fizzlers, goo and bounce gel. This is my second iteration of the level.</p>
-            <div class="links">
-              <a class="lnk" href="https://steamcommunity.com/sharedfiles/filedetails/?id=3334522282" target="_blank" rel="noopener">Steam Workshop →</a>
-            </div>
-          </div>
-        </article>
-        <article class="game">
-          <a href="#work-land-above" class="lvl-img"><img src="images/la-illustration.webp" alt="Pencil illustration of the player facing the tyrant and the harpy" loading="lazy"></a>
-          <div class="g-body">
-            <span class="g-tag">Level design document · 2024</span>
-            <h3>The Land Above</h3>
-            <p>A fantasy mission in a solarium on floating islands: story, sketches, storyboard, character and object metrics, a map and a mission map with main and optional paths.</p>
-            <div class="links"><a class="lnk" href="#work-land-above">Full breakdown →</a></div>
-          </div>
-        </article>
-        <article class="game">
-          <a href="#work-boxy-land" class="lvl-img"><img src="images/boxy-sketch.webp" alt="Pencil sketch of an abandoned city street" loading="lazy"></a>
-          <div class="g-body">
-            <span class="g-tag">Level design document &amp; Unity · 2025</span>
-            <h3>Boxy Land</h3>
-            <p>A post-apocalyptic 3D platformer level where each space teaches one skill: movement, collecting, combat, then a risky underground shortcut and a final tower climb.</p>
-            <div class="links"><a class="lnk" href="#work-boxy-land">Full breakdown →</a></div>
-          </div>
-        </article>
-        <article class="game">
-          <a href="#work-swapping-sellout" class="lvl-img"><img src="images/yt-stealth-level.webp" alt="Swapping Sellout level from the level design case study" loading="lazy"></a>
-          <div class="g-body">
-            <span class="g-tag">Swapping Sellout · Post-jam</span>
-            <h3>The Garage Sale</h3>
-            <p>The second level I built for Swapping Sellout after the game jam.</p>
-            <div class="links">
-              <a class="lnk" href="#work-swapping-sellout">Breakdown →</a>
-              <a class="lnk" href="https://www.youtube.com/watch?v=twpjZthQUj8" target="_blank" rel="noopener">Case study <span class="t">2:58</span></a>
-            </div>
-          </div>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <!-- SKILLS -->
-  <section class="band" id="skills">
-    <div class="wrap">
-      <div class="sec-head">
-        <div>
-          <h2>What I bring to a team</h2>
-          <p>Design is my focus, but most of my projects needed more than one role, so I've learned to build what I design. That range helps me work with every discipline on a team.</p>
-        </div>
-      </div>
-      <div class="disc">
-        <div class="d-card">
-          <h3>2D Art</h3>
-          <p>Concept art, environment studies, characters, UI and pixel art.</p>
-          <div class="links"><a class="lnk" href="#art" data-filter-link="2d">See 2D work →</a><a class="lnk" href="#work-streaming-talents">Character designs →</a></div>
-        </div>
-        <div class="d-card">
-          <h3>3D Art</h3>
-          <p>Props, vehicles and characters in Blender, textured in Substance 3D Painter, plus 3D animation.</p>
-          <div class="links"><a class="lnk" href="#art" data-filter-link="3d">See 3D work →</a></div>
-        </div>
-        <div class="d-card">
-          <h3>VFX</h3>
-          <p>Particle systems and hit effects that make every action read clearly and feel good.</p>
-          <div class="links"><a class="lnk" href="#work-speed-blower">Speed Blower particles →</a></div>
-        </div>
-        <div class="d-card">
-          <h3>Programming</h3>
-          <p>Gameplay systems, movement, combat and UI in C# with Unity.</p>
-          <div class="links"><a class="lnk" href="#work-broken-arm">Broken Arm breakdown →</a></div>
-        </div>
-        <div class="d-card">
-          <h3>Sound Design</h3>
-          <p>Sound effects and audio feedback that make controls feel responsive.</p>
-          <div class="links"><a class="lnk" href="https://www.youtube.com/watch?v=ErE3DWjBkyY" target="_blank" rel="noopener">VFX &amp; sound case study →</a></div>
-        </div>
-        <div class="d-card">
-          <h3>Music</h3>
-          <p>Original tracks and full game soundtracks across many genres, produced in FL Studio.</p>
-          <div class="links"><a class="lnk" href="#music">Listen →</a></div>
-        </div>
-        <div class="d-card">
-          <h3>Design</h3>
-          <p>Game and level design, design documents, diagrams and metrics, playtesting and iterating on what players actually struggle with.</p>
-          <div class="links"><a class="lnk" href="#work-fallen-farm">Fallen Farm level →</a></div>
-        </div>
-        <div class="d-card">
-          <h3>Writing</h3>
-          <p>Story, dialogue and in-game texting: a full narrative game in Twine, and the story and texting for Streaming Talents.</p>
-          <div class="links"><a class="lnk" href="#work-streaming-talents">Streaming Talents →</a></div>
-        </div>
-      </div>
-      <div class="tools">
-        <span class="mono muted">Toolbox</span>
-        <span class="chip">Unity</span><span class="chip">C#</span><span class="chip">Blender</span><span class="chip">Substance 3D Painter</span><span class="chip">Photoshop</span><span class="chip">Clip Studio Paint</span><span class="chip">FL Studio</span><span class="chip">DaVinci Resolve</span><span class="chip">3ds Max</span><span class="chip">Maya</span><span class="chip">Unreal</span><span class="chip">Far Cry 5 Arcade Editor</span><span class="chip">Portal 2 Puzzle Maker</span><span class="chip">Twine</span><span class="chip">Paint.NET</span>
-      </div>
-    </div>
-  </section>
-
   <!-- ART -->
   <section class="band" id="art">
     <div class="wrap">
       <div class="sec-head">
         <div>
-          <h2>Art</h2>
+          <h2><svg class="h2i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/></svg>Art</h2>
           <p>Concept art, illustration, 3D models and animation. Select any piece to view it larger.</p>
         </div>
         <div class="filters" role="group" aria-label="Filter art">
@@ -750,12 +687,84 @@ footer{border-top:1px solid var(--line);padding:56px 0 40px;background:var(--sur
     </div>
   </section>
 
+  <!-- LEVEL DESIGN -->
+  <section class="band" id="level-design">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <h2><svg class="h2i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6l6-3 6 3 6-3v15l-6 3-6-3-6 3z"/><path d="M9 3v15M15 6v15"/></svg>Level design</h2>
+          <p>Levels from my level design courses, from stories, sketches, metrics and maps through greybox and playtesting to a final build.</p>
+        </div>
+      </div>
+      <div class="levels">
+        <article class="game" data-skills="design">
+          <a href="#work-fallen-farm" class="lvl-img"><img src="images/fc-gameplay-map.webp" alt="Fallen Farm gameplay map with enemy, pickup and alarm markers" loading="lazy"></a>
+          <div class="g-body">
+            <span class="g-tag">Far Cry 5 Arcade Editor · 2025</span>
+            <h3>Fallen Farm</h3>
+            <p>A custom outpost mission on a farm overrun by cultists. I started from an analysis of Far Cry 5's Fall's End, then built bubble and mission diagrams, metrics, maps, a greybox and the final level through two rounds of testing.</p>
+            <ul class="skill-icons" aria-label="My work on this project"><li title="Design"><svg class="si" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6l6-3 6 3 6-3v15l-6 3-6-3-6 3z"/><path d="M9 3v15M15 6v15"/></svg><span class="sr">Design</span></li></ul>
+            <div class="links">
+              <a class="lnk" href="#work-fallen-farm">Full breakdown →</a>
+              <a class="lnk" href="https://www.youtube.com/watch?v=TgH2fJZTefw" target="_blank" rel="noopener">Playthrough <span class="t">10:58</span></a>
+            </div>
+          </div>
+        </article>
+        <article class="game" data-skills="design">
+          <a href="https://steamcommunity.com/sharedfiles/filedetails/?id=3334522282" target="_blank" rel="noopener" class="lvl-img"><img src="images/portal-verb-jump.webp" alt="Portal 2 test chamber with a faith plate and bounce gel" loading="lazy"></a>
+          <div class="g-body">
+            <span class="g-tag">Portal 2 Puzzle Maker · 2024</span>
+            <h3>Verb Jump</h3>
+            <p>A test chamber for new and casual players who haven't played Portal before, using buttons, weighted cubes, a faith plate, fizzlers, goo and bounce gel. This is my second iteration of the level.</p>
+            <ul class="skill-icons" aria-label="My work on this project"><li title="Design"><svg class="si" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6l6-3 6 3 6-3v15l-6 3-6-3-6 3z"/><path d="M9 3v15M15 6v15"/></svg><span class="sr">Design</span></li></ul>
+            <div class="links">
+              <a class="lnk" href="https://steamcommunity.com/sharedfiles/filedetails/?id=3334522282" target="_blank" rel="noopener">Steam Workshop →</a>
+            </div>
+          </div>
+        </article>
+        <article class="game" data-skills="design art2d writing">
+          <a href="#work-land-above" class="lvl-img"><img src="images/la-illustration.webp" alt="Pencil illustration of the player facing the tyrant and the harpy" loading="lazy"></a>
+          <div class="g-body">
+            <span class="g-tag">Level design document · 2024</span>
+            <h3>The Land Above</h3>
+            <p>A fantasy mission in a solarium on floating islands: story, sketches, storyboard, character and object metrics, a map and a mission map with main and optional paths.</p>
+            <ul class="skill-icons" aria-label="My work on this project"><li title="Design"><svg class="si" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6l6-3 6 3 6-3v15l-6 3-6-3-6 3z"/><path d="M9 3v15M15 6v15"/></svg><span class="sr">Design</span></li><li title="2D Art"><svg class="si" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/></svg><span class="sr">2D Art</span></li><li title="Writing"><svg class="si" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16v4z"/><path d="M13 7l4 4"/></svg><span class="sr">Writing</span></li></ul>
+            <div class="links"><a class="lnk" href="#work-land-above">Full breakdown →</a></div>
+          </div>
+        </article>
+        <article class="game" data-skills="design writing">
+          <a href="#work-boxy-land" class="lvl-img"><img src="images/boxy-sketch.webp" alt="Pencil sketch of an abandoned city street" loading="lazy"></a>
+          <div class="g-body">
+            <span class="g-tag">Level design document &amp; Unity · 2025</span>
+            <h3>Boxy Land</h3>
+            <p>A post-apocalyptic 3D platformer level where each space teaches one skill: movement, collecting, combat, then a risky underground shortcut and a final tower climb.</p>
+            <ul class="skill-icons" aria-label="My work on this project"><li title="Design"><svg class="si" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6l6-3 6 3 6-3v15l-6 3-6-3-6 3z"/><path d="M9 3v15M15 6v15"/></svg><span class="sr">Design</span></li><li title="Writing"><svg class="si" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16v4z"/><path d="M13 7l4 4"/></svg><span class="sr">Writing</span></li></ul>
+            <div class="links"><a class="lnk" href="#work-boxy-land">Full breakdown →</a></div>
+          </div>
+        </article>
+        <article class="game" data-skills="design">
+          <a href="#work-swapping-sellout" class="lvl-img"><img src="images/yt-stealth-level.webp" alt="Swapping Sellout level from the level design case study" loading="lazy"></a>
+          <div class="g-body">
+            <span class="g-tag">Swapping Sellout · Post-jam</span>
+            <h3>The Garage Sale</h3>
+            <p>The second level I built for Swapping Sellout after the game jam.</p>
+            <ul class="skill-icons" aria-label="My work on this project"><li title="Design"><svg class="si" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6l6-3 6 3 6-3v15l-6 3-6-3-6 3z"/><path d="M9 3v15M15 6v15"/></svg><span class="sr">Design</span></li></ul>
+            <div class="links">
+              <a class="lnk" href="#work-swapping-sellout">Breakdown →</a>
+              <a class="lnk" href="https://www.youtube.com/watch?v=twpjZthQUj8" target="_blank" rel="noopener">Case study <span class="t">2:58</span></a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
   <!-- MUSIC -->
   <section class="band" id="music">
     <div class="wrap">
       <div class="sec-head">
         <div>
-          <h2>Music</h2>
+          <h2><svg class="h2i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>Music</h2>
           <p>I write music for my own games and for teammates' games, and I release original tracks too. Every track links to YouTube.</p>
         </div>
         <a class="btn" href="https://www.youtube.com/playlist?list=PLs2O5VORVnAaUaNmvbi7zG0nyXp15--Jt" target="_blank" rel="noopener">Full playlist · 23 tracks</a>
@@ -799,42 +808,11 @@ footer{border-top:1px solid var(--line);padding:56px 0 40px;background:var(--sur
     </div>
   </section>
 
-  <!-- CASE STUDIES -->
-  <section class="band" id="case-studies">
-    <div class="wrap">
-      <div class="sec-head">
-        <div>
-          <h2>Case studies</h2>
-          <p>Short videos where I break down a design problem from one of my projects, what I learned, and what I'd change.</p>
-        </div>
-        <a class="btn" href="https://www.youtube.com/@brandonhut6131/videos" target="_blank" rel="noopener">YouTube channel</a>
-      </div>
-      <div class="cases">
-        <a class="case" href="https://www.youtube.com/watch?v=53EBAp3e5nM" target="_blank" rel="noopener">
-          <div class="thumb"><img src="images/yt-bug-dungeon.webp" alt="" loading="lazy"><span class="dur">2:30</span></div>
-          <div class="c-body"><span class="c-topic">Character design</span><h3>Bug Dungeon: Character Design Case Study</h3></div>
-        </a>
-        <a class="case" href="https://www.youtube.com/watch?v=ErE3DWjBkyY" target="_blank" rel="noopener">
-          <div class="thumb"><img src="images/yt-vfx-sounds.webp" alt="" loading="lazy"><span class="dur">2:42</span></div>
-          <div class="c-body"><span class="c-topic">VFX &amp; sound · To-Knight a Knight</span><h3>VFX and Sounds Matter More Than I Thought</h3></div>
-        </a>
-        <a class="case" href="https://www.youtube.com/watch?v=twpjZthQUj8" target="_blank" rel="noopener">
-          <div class="thumb"><img src="images/yt-stealth-level.webp" alt="" loading="lazy"><span class="dur">2:58</span></div>
-          <div class="c-body"><span class="c-topic">Level design · Swapping Sellout</span><h3>How I Finally Understood the Level Design of My Stealth Game</h3></div>
-        </a>
-        <a class="case" href="https://www.youtube.com/watch?v=8lkP6gbixOk" target="_blank" rel="noopener">
-          <div class="thumb"><img src="images/yt-dodge-critique.webp" alt="" loading="lazy"><span class="dur">5:14</span></div>
-          <div class="c-body"><span class="c-topic">Game feel · Mechanics</span><h3>My Dodge Mechanic Game Critique</h3></div>
-        </a>
-      </div>
-    </div>
-  </section>
-
   <!-- ABOUT -->
   <section class="band" id="about">
     <div class="wrap about-grid">
       <div class="about-text">
-        <h2 style="margin-bottom:24px">About me</h2>
+        <h2 style="margin-bottom:24px"><svg class="h2i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0116 0"/></svg>About me</h2>
         <p class="pull">Games have shaped a lot of my life. I want to make games that give players that same feeling.</p>
         <p>I'm in my fourth year of the Honours Bachelor of Game Design at Sheridan College in Oakville, Ontario, graduating in April 2027. I started early: Minecraft animations at eight, drawing since 2017, and more than eight years in Blender.</p>
         <p>My focus is game and level design. Most of my school and jam projects needed more than one role, so I've also learned to build what I design: concept art, 3D models, sprites, UI, VFX, C# in Unity, sound effects and music. On a team I put communication first, and I watch how players actually play so we fix the problems that matter.</p>
@@ -854,6 +832,74 @@ footer{border-top:1px solid var(--line);padding:56px 0 40px;background:var(--sur
           <ul><li>Hard-working</li><li>Leadership</li><li>Introspective</li><li>Empathy</li></ul>
         </div>
       </aside>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section class="band" id="skills">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <h2><svg class="h2i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>Skills</h2>
+          <p>Design is my focus, but most of my projects needed more than one role, so I've learned to build what I design. That range helps me work with every discipline on a team.</p>
+        </div>
+      </div>
+      <div class="disc">
+        <div class="d-card">
+          <h3><svg class="dh" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6l6-3 6 3 6-3v15l-6 3-6-3-6 3z"/><path d="M9 3v15M15 6v15"/></svg>Design</h3>
+          <p>Game and level design, design documents, diagrams and metrics, playtesting and iterating on what players actually struggle with.</p>
+          <div class="links"><a class="lnk" href="#work-fallen-farm">Fallen Farm level →</a><button type="button" class="lnk" data-skill-link="design">Games with Design →</button></div>
+        </div>
+        <div class="d-card">
+          <h3><svg class="dh" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/></svg>2D Art</h3>
+          <p>Concept art, environment studies, characters, sprites and pixel art.</p>
+          <div class="links"><a class="lnk" href="#art" data-filter-link="2d">See 2D work →</a><button type="button" class="lnk" data-skill-link="art2d">Games with 2D Art →</button></div>
+        </div>
+        <div class="d-card">
+          <h3><svg class="dh" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2l9 5v10l-9 5-9-5V7z"/><path d="M12 22V12M21 7l-9 5-9-5"/></svg>3D Art</h3>
+          <p>Props, vehicles and environments in Blender, textured in Substance 3D Painter.</p>
+          <div class="links"><a class="lnk" href="#art" data-filter-link="3d">See 3D work →</a><button type="button" class="lnk" data-skill-link="art3d">Games with 3D Art →</button></div>
+        </div>
+        <div class="d-card">
+          <h3><svg class="dh" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="5" r="2"/><path d="M10 22l2-8 2 8M8 10l4-2 4 2M12 8v6"/></svg>Animation</h3>
+          <p>2D character animation and 3D animation in Blender.</p>
+          <div class="links"><a class="lnk" href="#work-to-knight">To-Knight a Knight →</a><button type="button" class="lnk" data-skill-link="anim">Games with Animation →</button></div>
+        </div>
+        <div class="d-card">
+          <h3><svg class="dh" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M8 14h8"/></svg>UI/UX</h3>
+          <p>Menus, HUDs and icons, from the redesigned streaming screen in Streaming Talents to Broken Arm's sci-fi HUD.</p>
+          <div class="links"><a class="lnk" href="#work-streaming-talents">Streaming Talents →</a><button type="button" class="lnk" data-skill-link="ui">Games with UI/UX →</button></div>
+        </div>
+        <div class="d-card">
+          <h3><svg class="dh" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2v4M12 18v4M4.9 4.9l2.8 2.8M16.3 16.3l2.8 2.8M2 12h4M18 12h4M4.9 19.1l2.8-2.8M16.3 7.7l2.8-2.8"/></svg>VFX</h3>
+          <p>Particle systems and hit effects that make every action read clearly and feel good.</p>
+          <div class="links"><a class="lnk" href="#work-speed-blower">Speed Blower particles →</a><button type="button" class="lnk" data-skill-link="vfx">Games with VFX →</button></div>
+        </div>
+        <div class="d-card">
+          <h3><svg class="dh" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 6l-6 6 6 6M16 6l6 6-6 6"/></svg>Programming</h3>
+          <p>Gameplay systems, movement, cutscenes, tutorials and UI in C# with Unity.</p>
+          <div class="links"><a class="lnk" href="#work-broken-arm">Broken Arm breakdown →</a><button type="button" class="lnk" data-skill-link="code">Games with Programming →</button></div>
+        </div>
+        <div class="d-card">
+          <h3><svg class="dh" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 010 7M19 5a10 10 0 010 14"/></svg>Sound Design</h3>
+          <p>Sound effects and audio feedback that make controls feel responsive.</p>
+          <div class="links"><a class="lnk" href="#work-to-knight">To-Knight a Knight →</a><button type="button" class="lnk" data-skill-link="sound">Games with Sound Design →</button></div>
+        </div>
+        <div class="d-card">
+          <h3><svg class="dh" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>Music</h3>
+          <p>Original tracks and full game soundtracks across many genres, produced in FL Studio.</p>
+          <div class="links"><a class="lnk" href="#music">Listen →</a><button type="button" class="lnk" data-skill-link="music">Games with Music →</button></div>
+        </div>
+        <div class="d-card">
+          <h3><svg class="dh" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16v4z"/><path d="M13 7l4 4"/></svg>Writing</h3>
+          <p>Story, dialogue and in-game texting: a full narrative game in Twine, and the story and texting for Streaming Talents.</p>
+          <div class="links"><a class="lnk" href="#work-streaming-talents">Streaming Talents →</a><button type="button" class="lnk" data-skill-link="writing">Games with Writing →</button></div>
+        </div>
+      </div>
+      <div class="tools">
+        <span class="mono muted">Toolbox</span>
+        <span class="chip">Unity</span><span class="chip">C#</span><span class="chip">Blender</span><span class="chip">Substance 3D Painter</span><span class="chip">Photoshop</span><span class="chip">Clip Studio Paint</span><span class="chip">FL Studio</span><span class="chip">DaVinci Resolve</span><span class="chip">3ds Max</span><span class="chip">Maya</span><span class="chip">Unreal</span><span class="chip">Far Cry 5 Arcade Editor</span><span class="chip">Portal 2 Puzzle Maker</span><span class="chip">Twine</span><span class="chip">Paint.NET</span>
+      </div>
     </div>
   </section>
 </main>
@@ -1434,6 +1480,7 @@ footer{border-top:1px solid var(--line);padding:56px 0 40px;background:var(--sur
 
 <!-- MUSIC PLAYER -->
 <section class="player" id="player" aria-label="Music player">
+  <button type="button" class="p-hint" id="p-hint" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>Click here to play music</button>
   <div class="p-bar">
     <button type="button" class="p-play" id="p-play" aria-label="Play music">
       <svg class="i-play" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4l14 8-14 8z"/></svg>
@@ -1559,8 +1606,8 @@ footer{border-top:1px solid var(--line);padding:56px 0 40px;background:var(--sur
     {f:'m08-goodbye',t:'Goodbye',g:'',d:'2:11'},
     {f:'m09-grashious',t:'Grashious',g:'My Game Development',d:'2:30'},
     {f:'x01-battletrack',t:'BattleTrack',g:'Broken Arm',d:'2:49',x:1},
-    {f:'x02-alt-rock',t:'Alt Rock',g:'',d:'3:18',x:1},
     {f:'x02b-hard-bass',t:'Hard Bass',g:'',d:'2:53',x:1},
+    {f:'x02-alt-rock',t:'Alt Rock',g:'',d:'3:18',x:1},
     {f:'x02c-love-filled-world',t:'Love Filled World',g:'',d:'1:41',x:1},
     {f:'x03-jumping-game',t:'Main Theme',g:'The Jumping Game That Will Blow Your Mind',d:'2:15',x:1}
   ];
@@ -1652,6 +1699,80 @@ footer{border-top:1px solid var(--line);padding:56px 0 40px;background:var(--sur
   document.getElementById('vp-close').addEventListener('click',close);
   dlg.addEventListener('click',function(e){ if(e.target===dlg) close(); });
   dlg.addEventListener('close',function(){ frame.innerHTML=''; });
+})();
+</script>
+
+<script>
+(function(){
+  function read(k){try{return sessionStorage.getItem(k);}catch(e){return null;}}
+  function store(k,v){try{sessionStorage.setItem(k,v);}catch(e){}}
+  var main=document.getElementById('top');
+
+  // Alternative order: Levels first (bradash.github.io/level-design or #levels-first)
+  if(location.hash==='#levels-first'){ store('bh-order','levels'); try{history.replaceState(null,'',location.pathname+location.search+'#top');}catch(e){} }
+  if(read('bh-order')==='levels'){
+    var lv=document.getElementById('level-design'), gm=document.getElementById('games');
+    main.insertBefore(lv,gm);
+    [document.getElementById('nav-list'),document.querySelector('#rail ul')].forEach(function(ul){
+      if(!ul) return; var a=ul.querySelector('[data-sec="level-design"]'), b=ul.querySelector('[data-sec="games"]'); ul.insertBefore(a,b);
+    });
+    var cta=document.getElementById('hero-cta'); cta.textContent='See my levels'; cta.setAttribute('href','#level-design');
+  }
+
+  // Loadout: filter games by skill
+  var slots=document.querySelectorAll('.slot[data-skill]');
+  var cards=document.querySelectorAll('#games [data-skills]');
+  var bar=document.getElementById('filterbar'), txt=document.getElementById('filter-text'), none=document.getElementById('nomatch');
+  var current=null;
+  function setFilter(skill,scroll){
+    current = (skill===current) ? null : skill;
+    var shown=0;
+    cards.forEach(function(c){ var ok=!current || c.dataset.skills.split(' ').indexOf(current)>=0; c.hidden=!ok; if(ok) shown++; });
+    slots.forEach(function(b){ b.setAttribute('aria-pressed',String(b.dataset.skill===current)); });
+    if(current){
+      var slot=document.querySelector('.slot[data-skill="'+current+'"]');
+      txt.innerHTML=''; txt.appendChild(slot.querySelector('svg').cloneNode(true));
+      txt.appendChild(document.createTextNode('Showing '+shown+' game'+(shown===1?'':'s')+' with '+slot.querySelector('.sl').textContent));
+      bar.hidden=false; none.hidden=shown>0;
+    } else { bar.hidden=true; none.hidden=true; }
+    if(scroll && current){ if(location.hash.indexOf('#work-')===0) location.hash='games'; document.getElementById('games').scrollIntoView({behavior:'smooth'}); }
+  }
+  slots.forEach(function(b){ b.addEventListener('click',function(){ setFilter(b.dataset.skill,true); }); });
+  document.querySelectorAll('[data-skill-link]').forEach(function(b){ b.addEventListener('click',function(){ current=null; setFilter(b.dataset.skillLink,true); }); });
+  document.getElementById('filter-clear').addEventListener('click',function(){ setFilter(current,false); });
+
+  // Left rail: highlight the section you are in
+  var rail=document.getElementById('rail');
+  if(rail){
+    var items={}; rail.querySelectorAll('li').forEach(function(li){ items[li.dataset.sec]=li; });
+    var LEVEL_PAGES=['work-fallen-farm','work-land-above','work-boxy-land'];
+    function setActive(id){ Object.keys(items).forEach(function(k){ items[k].classList.toggle('active',k===id); var a=items[k].querySelector('a'); if(k===id) a.setAttribute('aria-current','true'); else a.removeAttribute('aria-current'); }); }
+    var targets=['games','art','level-design','music','about','skills'].map(function(id){return document.getElementById(id);});
+    targets.unshift(document.getElementById('home-hero'));
+    function update(){
+      var page=document.querySelector('.work:not([hidden])');
+      if(page){ setActive(LEVEL_PAGES.indexOf(page.id)>=0?'level-design':'games'); return; }
+      var mid=window.innerHeight*0.4, best='top';
+      targets.forEach(function(el){ if(!el) return; var r=el.getBoundingClientRect(); if(r.top<=mid && r.bottom>0) best=(el.id==='home-hero'?'top':el.id); });
+      var atEnd=window.innerHeight+window.scrollY>=document.documentElement.scrollHeight-4;
+      if(atEnd){ targets.forEach(function(el){ if(el && el.getBoundingClientRect().top<window.innerHeight*0.85) best=(el.id==='home-hero'?'top':el.id); }); }
+      setActive(best);
+    }
+    var ticking=false;
+    window.addEventListener('scroll',function(){ if(!ticking){ ticking=true; requestAnimationFrame(function(){ ticking=false; update(); }); } },{passive:true});
+    window.addEventListener('hashchange',function(){ setTimeout(update,50); });
+    window.addEventListener('resize',update);
+    update();
+  }
+
+  // Music hint
+  var hint=document.getElementById('p-hint'), audio=document.getElementById('p-audio'), play=document.getElementById('p-play');
+  var played=false; try{played=localStorage.getItem('bh-played')==='1';}catch(e){}
+  if(hint && !played){ hint.hidden=false; }
+  if(hint){
+    hint.addEventListener('click',function(){ play.click(); });
+    audio.addEventListener('play',function(){ hint.hidden=true; try{localStorage.setItem('bh-played','1');}catch(e){} });
+  }
 })();
 </script>
 </body>
