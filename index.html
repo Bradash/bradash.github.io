@@ -399,6 +399,14 @@ button.lnk{background:none;border:0;padding:0;cursor:pointer;font-family:var(--f
 @media (prefers-reduced-motion: no-preference){.p-hint{animation:hintbob 2.4s ease-in-out infinite}}
 @keyframes hintbob{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
 
+
+.awards{display:flex;flex-wrap:wrap;gap:8px 10px;align-items:center;margin:4px 0 16px}
+.award{display:inline-flex;align-items:center;gap:7px;padding:6px 12px;border-radius:999px;border:1px solid var(--accent);background:color-mix(in srgb,var(--accent) 14%,var(--surface));font-weight:600;font-size:14px}
+.award svg,.won svg{width:16px;height:16px;color:var(--accent);flex:none}
+.won{display:flex;gap:7px;align-items:flex-start;font-size:13.5px !important;font-weight:600;color:var(--accent-ink)}
+.won svg{margin-top:2px}
+#work-to-knight .shot.fit button{background:#fff}
+
 /* footer */
 footer{border-top:1px solid var(--line);padding:56px 0 40px;background:var(--surface)}
 .foot{display:flex;justify-content:space-between;gap:32px;flex-wrap:wrap;align-items:flex-end}
@@ -582,6 +590,7 @@ footer{border-top:1px solid var(--line);padding:56px 0 40px;background:var(--sur
           <img src="images/game-to-knight.webp" alt="To-Knight a Knight title screen in a pixel-art arena" loading="lazy">
           <div class="g-body">
             <span class="g-tag">Accessibility game jam · Team</span>
+            <p class="won"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 01-10 0V4z"/><path d="M17 5h3v2a3 3 0 01-3 3M7 5H4v2a3 3 0 003 3"/></svg>Best Overall Game, Impact Award, Flexible Play Award</p>
             <h3>To-Knight a Knight</h3>
             <p>A 2D souls-lite fighting game. I did the art pass, illustrated and animated the player knight, and made the VFX, sound and music.</p>
             <ul class="skill-icons" aria-label="My work on this project"><li title="2D Art"><svg class="si" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/></svg><span class="sr">2D Art</span></li><li title="Animation"><svg class="si" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="5" r="2"/><path d="M10 22l2-8 2 8M8 10l4-2 4 2M12 8v6"/></svg><span class="sr">Animation</span></li><li title="UI/UX"><svg class="si" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M8 14h8"/></svg><span class="sr">UI/UX</span></li><li title="VFX"><svg class="si" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2v4M12 18v4M4.9 4.9l2.8 2.8M16.3 16.3l2.8 2.8M2 12h4M18 12h4M4.9 19.1l2.8-2.8M16.3 7.7l2.8-2.8"/></svg><span class="sr">VFX</span></li><li title="Programming"><svg class="si" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 6l-6 6 6 6M16 6l6 6-6 6"/></svg><span class="sr">Programming</span></li><li title="Sound Design"><svg class="si" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 010 7M19 5a10 10 0 010 14"/></svg><span class="sr">Sound Design</span></li><li title="Music"><svg class="si" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg><span class="sr">Music</span></li></ul>
@@ -1406,12 +1415,16 @@ footer{border-top:1px solid var(--line);padding:56px 0 40px;background:var(--sur
       <a class="back" href="#games">← All games</a>
       <header class="work-head">
         <div>
-          <p class="eyebrow">Accessibility game jam · Team · Unity</p>
+          <p class="eyebrow">Accessibility game jam · Team · Unity · 3 awards</p>
           <h1>To-Knight a Knight</h1>
           <p class="work-lead">A 2D souls-lite fighting game. I did the art pass on the whole game except the enemy model, composed the music, and built the game feel: hit, damage and death effects and sounds for both the player and the enemy.</p>
         </div>
         <div class="links"><a class="btn primary" href="https://clamel.itch.io/to-knight-a-knight" target="_blank" rel="noopener">Play on itch.io</a></div>
       </header>
+      <div class="awards" aria-label="Awards">
+        <span class="award"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 01-10 0V4z"/><path d="M17 5h3v2a3 3 0 01-3 3M7 5H4v2a3 3 0 003 3"/></svg>Best Overall Game</span><span class="award"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 01-10 0V4z"/><path d="M17 5h3v2a3 3 0 01-3 3M7 5H4v2a3 3 0 003 3"/></svg>Impact Award</span><span class="award"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 01-10 0V4z"/><path d="M17 5h3v2a3 3 0 01-3 3M7 5H4v2a3 3 0 003 3"/></svg>Flexible Play Award</span>
+        <a class="lnk" href="https://www.instagram.com/p/DZ6cyrVjfvc/" target="_blank" rel="noopener">Announcement by the jam hosts, noodlegoose.ca, on Instagram →</a>
+      </div>
       <div class="roles"><span class="mono muted">My role</span><span class="chip">Art pass</span><span class="chip">Player knight art &amp; animation</span><span class="chip">UI</span><span class="chip">VFX</span><span class="chip">Sound design</span><span class="chip">Music</span><span class="chip">Integration programming</span></div>
 
       <section class="block">
@@ -1430,6 +1443,21 @@ footer{border-top:1px solid var(--line);padding:56px 0 40px;background:var(--sur
         <div class="shots">
           <figure class="shot"><button type="button" data-full="images/game-to-knight.webp" data-cap="To-Knight a Knight"><img src="images/game-to-knight.webp" alt="To-Knight a Knight title screen" loading="lazy"></button><figcaption>Title screen</figcaption></figure>
           <figure class="shot"><button type="button" data-full="images/yt-vfx-sounds.webp" data-cap="From the VFX and sounds case study"><img src="images/yt-vfx-sounds.webp" alt="Frame from the VFX and sounds case study" loading="lazy"></button><figcaption>From the case study</figcaption></figure>
+        </div>
+      </section>
+      <section class="block">
+        <div class="block-text">
+          <h2>Art and animation</h2>
+          <p>I took the player knight from a rough sketch to clean line art, then animated his walk cycle and his attacks and blocks. I also painted the arena background and drew the cover concept. Each animation is shown with its work-in-progress version.</p>
+        </div>
+        <div class="shots">
+          <figure class="shot wide"><button type="button" data-full="images/tk-arena.webp" data-cap="Arena background"><img src="images/tk-arena.webp" alt="Painted colosseum arena with arches, a crowd and a sandy floor under a blue sky" loading="lazy"></button><figcaption>Arena background</figcaption></figure>
+          <figure class="shot fit"><button type="button" data-full="images/tk-cover-concept.webp" data-cap="Cover concept: the knight faces a giant axe-wielding enemy in the arena"><img src="images/tk-cover-concept.webp" alt="Pencil sketch of the knight facing a giant enemy with an axe in an arena" loading="lazy"></button><figcaption>Cover concept</figcaption></figure>
+          <figure class="shot fit"><button type="button" data-full="images/tk-knight-concept.webp" data-cap="Player knight: concept sketch"><img src="images/tk-knight-concept.webp" alt="Rough sketch of an armoured knight with a plumed helmet and a scarf" loading="lazy"></button><figcaption>Knight concept sketch</figcaption></figure>
+          <figure class="shot fit"><button type="button" data-full="images/tk-walk-final.gif" data-cap="Walk cycle (final)"><img src="images/tk-walk-final.gif" alt="Animated line art of the knight walking with a rapier" loading="lazy"></button><figcaption>Walk cycle</figcaption></figure>
+          <figure class="shot fit"><button type="button" data-full="images/tk-walk-wip.gif" data-cap="Walk cycle (work in progress)"><img src="images/tk-walk-wip.gif" alt="Rough animated sketch of the knight's walk cycle" loading="lazy"></button><figcaption>Walk cycle, work in progress</figcaption></figure>
+          <figure class="shot fit"><button type="button" data-full="images/tk-attack-final.gif" data-cap="Attacks and blocks (final)"><img src="images/tk-attack-final.gif" alt="Animated line art of the knight attacking and blocking with a rapier" loading="lazy"></button><figcaption>Attacks and blocks</figcaption></figure>
+          <figure class="shot fit"><button type="button" data-full="images/tk-attack-wip.gif" data-cap="Attacks and blocks (work in progress)"><img src="images/tk-attack-wip.gif" alt="Rough animated sketch of the knight attacking and blocking" loading="lazy"></button><figcaption>Attacks and blocks, work in progress</figcaption></figure>
         </div>
       </section>
       <nav class="pager" aria-label="More projects"><a href="#work-broken-arm">← Broken Arm</a><a href="#work-jumping-game">The Jumping Game →</a></nav>
